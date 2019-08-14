@@ -1,16 +1,12 @@
 // --- Imports -- //
-import { SET_CATALOG } from "./types";
-
-const initState = {
-  sets: [],
-  colors: ["White", "Red", "Green", "Blue", "Black"]
-};
+import types from "./types";
+import {default as initState} from './state'
 
 // -- reducer --- //
 function reducer(state = initState, action) {
   switch (action.type) {
-    case SET_CATALOG:
-      return Object.assign(state, {
+    case types.SET_CATALOG:
+      return Object.assign({}, {...state}, {
         sets: action.payload
       });
     default:

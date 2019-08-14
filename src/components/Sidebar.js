@@ -32,14 +32,14 @@ const useStyles = makeStyles(theme => ({
   },
   toolbar: theme.mixins.toolbar,
   treeview: {
-    maxHeight: 250
+    maxHeight: 250,
+    overflow: 'scroll'
   }
 }));
 
 // -- setting up state --- /
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(state);
   return {
     ...ownProps,
     colors: state.colors,
@@ -59,7 +59,10 @@ function Sidebar(props) {
   const classes = useStyles();
   useEffect(() => {
     console.log("useEffect");
-    props.initSets();
+    if(props.sets.length === 0){
+      props.initSets();
+
+    }
   });
   return (
     <Drawer

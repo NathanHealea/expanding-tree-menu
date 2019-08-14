@@ -1,11 +1,11 @@
 // --- Imports --- //
 import axios from "axios";
-import { SET_CATALOG } from "./types";
+import types from "./types";
 
 // --- Action --- //
 function setCatalog(sets) {
   return {
-    type: SET_CATALOG,
+    type: types.SET_CATALOG,
     payload: sets
   };
 }

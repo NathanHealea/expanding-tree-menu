@@ -5,4 +5,4 @@ import logger from "redux-logger";
 // --- Store Imports  --- //
 import reducer from "./reducer";
 
-export default createStore(reducer, applyMiddleware(thunk));
+export default createStore(reducer, applyMiddleware(thunk, logger));
