@@ -1,5 +1,5 @@
 // --- Imports --- //
-import React from "react";
+import React , {useState} from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 
@@ -10,10 +10,11 @@ import { Navbar, Sidebar } from "./components";
 import store from "./store";
 
 function App() {
+  const [sidebar, setSidebar] = useState(false)
   return (
     <React.Fragment>
-      <Navbar />
-      <Sidebar />
+      <Navbar openDrawer={()=> setSidebar(true)}/>
+      <Sidebar open={sidebar} closeDrawer={() => {setSidebar(false)}}/>
     </React.Fragment>
   );
 }

@@ -3,32 +3,34 @@ import React from "react";
 
 // --- Material Ui Imports --- //
 import { makeStyles } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import Toolbar from "@material-ui/core/Toolbar";
-import List from "@material-ui/core/List";
+import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
+import MenuIcon from "@material-ui/icons/Menu";
 
 // --- Styles --- //
 const useStyles = makeStyles(theme => ({
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1
-  }
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
 }));
 function Navbar(props) {
-  const classes = useStyles();
+  const classes = useStyles(props);
   return (
-    <AppBar position="fixed" className={classes.appBar}>
+    <AppBar position="fixed">
       <Toolbar>
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          onClick={props.openDrawer}
+          edge="start"
+          className={classes.menuButton}
+        >
+          <MenuIcon />
+        </IconButton>
         <Typography variant="h6" noWrap>
-          Applicaton Name
+          Application Name
         </Typography>
       </Toolbar>
     </AppBar>

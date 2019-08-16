@@ -1,5 +1,7 @@
 // --- Import --- //
 import React, { useState } from "react";
+import PropTypes from "prop-types";
+import clsx from "clsx";
 
 // --- Material Ui Imports --- //
 import List from "@material-ui/core/List";
@@ -13,23 +15,48 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 
 import makeStyles from "@material-ui/core/styles/makeStyles";
 
-// --- Styles --- //
-const useStyles = makeStyles(theme => ({
+// --- Expandable List Content Styles --- //
+const expandableListContentStyles = makeStyles(theme => ({
+  nestedItem: {
+    // paddingLeft: theme.spacing(4),
+    // maxHeight: '100%',
+    // overflowY: 'scroll'
+  }
+}));
+
+function ExpandableListContent(props) {
+  const classes = expandableListContentStyles();
+
+  const { classNames, expand, children, ...other } = props;
+
+  return (
+    <Collapse in={expand} timeout="auto" unmountOnExit>
+      <List
+        component="div"
+        disablePadding
+        className={clsx(classes.nestedItem, classNames)}
+        {...other}
+      >
+        {children}
+      </List>
+    </Collapse>
+  );
+}
+
+// --- Expandable Styles --- //
+const expandableStyles = makeStyles(theme => ({
   listItemIcon: {
     minWidth: 0,
     marginRight: theme.spacing(1)
   },
   nestedList: {
-    // paddingLeft: theme.spacing(2)
-  },
-  nestedItem: {
-    paddingLeft: theme.spacing(8)
+    // paddingLeft: theme.spacing(2),
+
   }
 }));
-
 function ExpandableListItem(props) {
   const [expand, setExpand] = useState(false);
-  const classes = useStyles();
+  const classes = expandableStyles();
 
   const children = React.Children.map(props.children, child =>
     React.cloneElement(child, { className: classes.nestedItem })
@@ -46,14 +73,20 @@ function ExpandableListItem(props) {
         </ListItemIcon>
         <ListItemText primary={props.primary} secondary={props.secondary} />
       </ListItem>
-      <Collapse in={expand} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding className={classes.nestedList}>
+      <ExpandableListContent expand={expand}>
           {children}
-        </List>
-      </Collapse>
+        </ExpandableListContent>
     </React.Fragment>
   );
 }
+
+// --- Defining Props --- //
+ExpandableListItem.propTypes = {
+  /**
+   * properties to be applied to the list components
+   */
+  ListProps: PropTypes.object
+};
 
 // --- Exports --- //
 export default ExpandableListItem;
